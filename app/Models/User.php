@@ -28,7 +28,8 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
     use ModelHelpers;
 
-    const DEFAULT = 1;
+    const
+        DEFAULT = 1;
     const MODERATOR = 2;
     const WRITER = 3;
     const ADMIN = 4;
@@ -193,7 +194,8 @@ class User extends Authenticatable
     // Type
     public function isDefault(): bool
     {
-        return $this->type() === self::DEFAULT;
+        return $this->type() === self::
+        DEFAULT;
     }
 
     public function isModerator(): bool
@@ -237,12 +239,14 @@ class User extends Authenticatable
         return $this->hasMany(Post::class, 'author_id');
     }
 
-    protected static function booted()
-    {
-        static::updated(queueable(function ($customer) {
-            $customer->syncStripeCustomerDetails();
-        }));
-    }
+    // protected static function booted()
+    // {
+    //     static::updated(queueable(function ($customer) {
+    //         if ($customer->hasStripeId()) {
+    //             $customer->syncStripeCustomerDetails();
+    //         }
+    //     }));
+    // }
 
     public function stripeAddress()
     {
